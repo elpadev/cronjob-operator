@@ -1,0 +1,27 @@
+{
+  "name": "Kubebuilder DevContainer",
+  "image": "mcr.microsoft.com/devcontainers/go:1-1.24-bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {},
+    "ghcr.io/mpriscella/features/kind:1": {},
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/elpadev/features/kubebuilder:1": {}
+  },
+
+  "runArgs": ["--network=host"],
+
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+      },
+      "extensions": [
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "ms-azuretools.vscode-docker"
+      ]
+    }
+  }
+
+  // "onCreateCommand": "bash .devcontainer/post-install.sh"
+}
