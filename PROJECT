@@ -3,9 +3,19 @@
 # and allow the plugins properly work.
 # More info: https://book.kubebuilder.io/reference/project-config.html
 cliVersion: 4.7.1
-domain: github.com/elpadev
+domain: elpa.dev
 layout:
 - go.kubebuilder.io/v4
 projectName: cronjob-operator
 repo: github.com/elpadev/cronjob-operator
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: elpa.dev
+  group: batch
+  kind: CronJob
+  path: github.com/elpadev/cronjob-operator/api/v1
+  version: v1
 version: "3"
