@@ -1,8 +1,10 @@
 {
   "name": "Kubebuilder DevContainer",
-  "image": "golang:1.24",
+  "image": "mcr.microsoft.com/devcontainers/go:1-1.24-bookworm",
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {},
+    "ghcr.io/mpriscella/features/kind:1": {},
     "ghcr.io/devcontainers/features/git:1": {}
   },
 
@@ -18,7 +20,7 @@
         "ms-azuretools.vscode-docker"
       ]
     }
-  },
+  }
 
-  "onCreateCommand": "bash .devcontainer/post-install.sh"
+  // "onCreateCommand": "bash .devcontainer/post-install.sh"
 }
