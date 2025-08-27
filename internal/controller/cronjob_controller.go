@@ -18,11 +18,14 @@ package controller
 
 import (
 	"context"
+	"time"
 
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
+	kbatch "k8s.io/api/batch/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	batchv1 "github.com/elpadev/cronjob-operator/api/v1"
 )
@@ -49,7 +52,29 @@ type CronJobReconciler struct {
 func (r *CronJobReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
 	_ = logf.FromContext(ctx)
 
-	// TODO(user): your logic here
+	// Get the CronJob CR from the cluster
+	var cronJob batchv1.CronJob
+	r.Get(ctx, req.NamespacedName, &cronJob)
+
+	// Parse the Cron Schedule Expression
+	schedule, err := cron.ParseStandard(cronJob.Spec.Schedule)
+	
+
+	// Create a Job resource in the cluster, if the dschedule matches
+	now := time.Now()
+	next := schedule.next(now)
+	if now.Equal(next) || now.After(next) {
+		// Create a job
+		job := kbatch.Job{
+			ObjectMeta: metav1.ObjectMeta{
+				Name: "cronjob",
+				Namespace: req.Namespace,
+			},
+		},
+	},
+	
+
+
 
 	return ctrl.Result{}, nil
 }

@@ -30,9 +30,10 @@ type CronJobSpec struct {
 	// The following markers will use OpenAPI v3 schema to validate the value
 	// More info: https://book.kubebuilder.io/reference/markers/crd-validation.html
 
-	// foo is an example field of CronJob. Edit cronjob_types.go to remove/update
-	// +optional
-	Foo *string `json:"foo,omitempty"`
+	// schedule in Cron format, see https://en.wikipedia.org/wiki/Cron.
+    // +kubebuilder:validation:MinLength=0
+    // +required
+	CronSchedule string `json:"cronSchedule"`
 }
 
 // CronJobStatus defines the observed state of CronJob.
